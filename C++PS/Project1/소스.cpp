@@ -1,9 +1,318 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main(void) {
-
+/* 프로그래머스 : 하샤드 수
+bool solution(int x) {
+	bool answer = true;
+	string s = to_string(x);
+	int temp = 0;
+	for (char c : s) {
+		temp += c - '0';
+	}
+	if (x%temp == 0) {
+		return true;
+	}
+	return false;
 }
+*/
+/* 프로그래머스 : 문자열 처리
+string solution(string phone_number) {
+	string answer = "";
+	for (int i = 0; i < phone_number.length() - 4; i++) {
+		phone_number[i] = '*';
+	}
+	answer = phone_number;
+	return answer;
+}
+*/
+/* 프로그래머스 : 행렬의 덧셈 
+vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2) {
+	vector<vector<int>> answer;
+	vector<int> temp;
+	for (int i = 0; i < arr1.size(); i++) {
+		for (int j = 0; j < arr1[i].size(); j++) {
+			temp.push_back(arr1[i][j] + arr2[i][j]);
+		}
+		answer.push_back(temp);
+		temp.clear();
+	}
+	return answer;
+}
+*/
+
+/* 프로그래머스 : x만큼 간격이 있는 n개의 숫자
+vector<long long> solution(int x, int n) {
+	vector<long long> answer;
+	int temp = x;
+	for (int i = 0; i < n; i++) {
+		answer.push_back(temp);
+		temp = temp + x;
+	}
+	return answer;
+} 
+*/
+/* 프로그래머스 : 별찍기 
+int main(void) {
+	int a;
+	int b;
+	cin >> a >> b;
+	for (int i = 0; i < b; i++) {
+		for (int j = 0; j < a; j++) {
+			cout << "*";
+		}
+		cout << "\n";
+	}
+	return 0;
+}
+*/ 
+/* 프로그래머스 : 평균 구하기 
+double solution(vector<int> arr) {
+	double answer = accumulate(arr.begin(),arr.end(),0);
+	return answer/arr.size();
+}
+*/
+/* 프로그래머스 : 콜라츠 추측
+int solution(int num) {
+	long long n = num;
+	int answer = 0;
+	while (true) {
+		if (n == 1)
+			break;
+
+		n % 2 == 0 ? n /= 2 : n = 3 * n + 1;
+		answer++;
+
+		if (answer == 500) {
+			answer = -1;
+			break;
+		}
+
+	}
+	return answer;
+}
+*/
+
+/* 프로그래머스 : 최대공약수와 최소공배수 
+int gcd(int a, int b) {
+	if (b == 0)
+		return a;
+	else {
+		return gcd(b, a%b);
+	}
+}
+
+int lcm(int a, int b) {
+	return (int)((a*b) / gcd(a, b));
+}
+
+vector<int> solution(int n, int m) {
+	vector<int> answer;
+	answer.push_back(gcd(n, m));
+	answer.push_back(lcm(n, m));
+	return answer;
+}
+*/
+/* 프로그래머스 : 홀짝판별 
+string solution(int num) {
+	string answer = "";
+	if (num % 2 == 0) {
+		return "Even";
+	}
+	else {
+		return "Odd";
+	}
+}
+*/
+
+/* 프로그래머스 : 작은 수 제거
+vector<int> solution(vector<int> arr) {
+	if (arr.size() == 1) {
+		return { -1 };
+	}
+	arr.erase(min_element(arr.begin(), arr.end()));
+	return arr;
+}
+*/
+/* 프로그래머스 : 제곱 수
+long long solution(long long n) {
+	long long answer = sqrt(n);
+
+	return powl(answer,2) == n ? powl(answer+1,2) : -1;
+}
+*/
+/* 프로그래머스 : 정수 내림차순으로 배치하기
+long long solution(long long n) {
+	long long answer = 0;
+	string s = to_string(n);
+	sort(s.begin(), s.end(),greater<char>());
+	answer = stoll(s);
+	return answer;
+}
+*/
+/* 프로그래머스 : 자연수 뒤집어 배열로 만들기
+vector<int> solution(long long n) {
+	vector<int> answer;
+	string s = to_string(n);
+	reverse(s.begin(),s.end());
+	for (char c : s) {
+		answer.push_back(c - '0');
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 자릿수 더하기 
+int solution(int n)
+{
+	int answer = 0;
+	string temp = to_string(n);
+	for (char c : temp) {
+		answer += c - '0';
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 이상한 문자 만들기 
+string solution(string s) {
+	string answer = "";
+	int idx = 0;
+	for (int i = 0; i < s.length(); i++) {
+		if (s[i] == ' ') {
+			answer += ' ';
+			idx = 0;
+		}
+		else if (idx % 2 == 0) {
+			answer += toupper(s[i]);
+			idx++;
+		}
+		else {
+			answer += tolower(s[i]);
+			idx++;
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 약수의 합 
+int solution(int n) {
+	int answer = 0;
+	for (int i = 1; i <= n; i++) {
+		if (n%i == 0) {
+			answer++;
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 시저 암호
+string solution(string s, int n) {
+	string answer = "";
+	for (auto c : s) {
+		if (c == ' ') {
+			answer += c;
+		}
+		else if (c < 'a') {
+			answer += static_cast<char>(((c - 'A') + n) % 26 + 'A');
+		}
+		else {
+			answer += static_cast<char>(((c - 'a') + n) % 26 + 'a');
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 문자열 숫자로 변환
+int solution(string s) {
+	return stoi(s);
+}
+*/
+/* 프로그래머스 : 수박수박수박수박수박수? 
+string solution(int n) {
+	string answer = "";
+	for (int i = 1; i <= n; i++) {
+		if (i % 2 == 0) {
+			answer += "박";
+		}
+		else {
+			answer += "수";
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 소수 찾기(에라토스테네스의 체) 
+int solution(int n) {
+	int answer = 0;
+	vector<bool> temp(n+1,true);
+	for (int i = 2; i <= sqrt(n); i++) {
+		if (temp[i]) {
+			int j = 2;
+			while (i*j <= n)
+			{
+				temp[i*j] = false;
+				j++;
+			}
+		}
+	}
+	for (int i = 2; i <= n; i++) {
+		if (temp[i]) {
+			answer++;
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 김서방 찾기 
+string solution(vector<string> seoul) {
+	string answer = "";
+	for (int i = 0; i < seoul.size();i++) {
+		if (seoul[i] == "Kim") {
+			answer = "김서방은 " + to_string(i) + "에 있다";
+		}
+	}
+	return answer;
+}
+*/
+/* 프로그래머스 : 문자열 다루기 
+bool solution(string s) {
+	bool answer = true;
+	for (char c : s) {
+		if (!isdigit(c)) {
+			return false;
+		}
+	}
+	return s.length() == 4 || s.length() == 6 ? answer : false;
+}
+*/
+/* 프로그래머스 : 문자열 내림차순으로 배치하기 
+string solution(string s) {
+	string answer = "";
+	sort(s.begin(), s.end(),greater<char>());
+	return s;
+}
+*/
+/* 프로그래머스 : 문자열 내 p와 y의 개수
+bool solution(string s)
+{
+	bool answer = true;
+	int Pcount = 0;
+	int Ycount = 0;
+	for (char c : s) {
+		if (c == 'p' || c == 'P') {
+			Pcount++;
+		}
+		else if (c == 'y' || c == 'Y') {
+			Ycount++;
+		}
+	}
+	if (Pcount == Ycount) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	return answer;
+}
+*/
 /* 프로그래머스 : 문자열 내 마음대로 정렬하기 
 int cn;
 bool compare(string a, string b) {
