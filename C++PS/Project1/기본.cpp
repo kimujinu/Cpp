@@ -1,5 +1,80 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <algorithm>
 using namespace std;
+
+/* 프로그래머스 : 주식가격*/
+vector<int> solution(vector<int> prices) {
+	vector<int> answer;
+	for (int i = 0; i < prices.size(); i++) {
+		int time = 0;
+		for (int j = i + 1; j < prices.size(); j++) {
+			if (prices[i] > prices[j]) {
+				time++;
+				break;
+			}
+			else {
+				time++;
+			}
+		}
+		answer.push_back(time);
+	}
+	return answer;
+}
+
+/* 프로그래머스 : 카펫 
+vector<int> solution(int brown, int yellow) {
+	vector<int> answer;
+	int len = brown / 2 + 2;
+	int w = len - 3;
+	int h = 3;
+	while (w>=h)
+	{
+		if (w * h == (brown + yellow))
+			break;
+		w--;
+		h++;
+	}
+	return vector<int>{w,h};
+}
+*/
+/* 프로그래머스 : H-Index
+int solution(vector<int> citations) {
+	sort(citations.begin(), citations.end(), greater<int>());
+	for (int i = 0; i < citations.size(); i++) {
+		if (citations[i] < i + 1)
+			return i;
+	}
+}
+*/
+int main() {
+	solution({1,2,3,2,3});
+}
+
+/* 프로그래머스 : 짝지어 제거하기
+int solution(string s)
+{
+	stack<char> st;
+	for (int i = 0; i < s.length(); i++) {
+		if (st.size() == 0) {
+			st.push(s[i]);
+		}
+		else if (st.top() == s[i]) {
+			st.pop();
+		}
+		else {
+			st.push(s[i]);
+		}
+	}
+
+	if (st.size() == 0)
+		return 1;
+	else
+		return 0;
+}
+*/
 
 /* 프로그래머스 : 해시 
 int solution(vector<vector<string>> clothes) {
@@ -301,7 +376,3 @@ vector<int> solution(vector<int> progresses, vector<int> speeds) {
 	return answer;
 }
 */
-int main(void) {
-	solution({ {"yellow_hat", "headgear"},{"blue_sunglasses", "eyewear"},{"green_turban", "headgear"} });
-
-}

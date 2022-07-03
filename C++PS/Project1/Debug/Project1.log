@@ -1,3 +1,4 @@
 ﻿  기본.cpp
-d:\c++\cpp_study\c++ps\project1\기본.cpp(9): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\c++\Cpp_study\C++PS\Project1\기본.cpp(10,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\c++\Cpp_study\C++PS\Project1\기본.cpp(12,25): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   Project1.vcxproj -> D:\c++\Cpp_study\C++PS\Debug\Project1.exe

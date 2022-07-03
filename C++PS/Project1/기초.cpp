@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
+//#include <bits/stdc++.h>
+//using namespace std;
 
 /* 프로그래머스 : 하샤드 수
 bool solution(int x) {
