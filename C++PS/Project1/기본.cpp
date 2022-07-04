@@ -5,7 +5,63 @@
 #include <algorithm>
 using namespace std;
 
-/* 프로그래머스 : 주식가격*/
+/* 프로그래머스 : 숫자의 표현 
+int solution(int n) {
+	int answer = 0;
+	for (int i = 1; i <= n; i++) {
+		int temp = 0;
+		for (int j = i; j <= n; j++) {
+			temp += j;
+			if (temp == n) {
+				answer += 1;
+				break;
+			}
+			else if (temp > n)
+				break;
+		}
+	}
+	return answer;
+}
+*/
+
+int main() {
+	solution(15);
+}
+/* 프로그래머스 : 멀리 뛰기 
+long long solution(int n) {
+	long long answer = 0;
+	int dp[2001] = { 0 };
+	dp[1] = 1;
+	dp[2] = 2;
+	for (int i = 3; i <= n; i++) {
+		dp[i] = (dp[i - 1] + dp[i - 2])%1234567;
+	}
+	answer = dp[n];
+	return answer;
+}
+*/
+/* 프로그래머스 : 올바른 괄호 
+bool solution(string s)
+{
+	stack<char> st;
+	for (char c : s) {
+		if (c == '(') {
+			st.push(c);
+		}
+		else if (c == ')') {
+			if (st.empty()) {
+				return false;
+			}
+			st.pop();
+		}
+	}
+	if (st.empty())
+		return true;
+	else
+		return false;
+}
+*/
+/* 프로그래머스 : 주식가격
 vector<int> solution(vector<int> prices) {
 	vector<int> answer;
 	for (int i = 0; i < prices.size(); i++) {
@@ -23,7 +79,7 @@ vector<int> solution(vector<int> prices) {
 	}
 	return answer;
 }
-
+*/
 /* 프로그래머스 : 카펫 
 vector<int> solution(int brown, int yellow) {
 	vector<int> answer;
@@ -49,9 +105,7 @@ int solution(vector<int> citations) {
 	}
 }
 */
-int main() {
-	solution({1,2,3,2,3});
-}
+
 
 /* 프로그래머스 : 짝지어 제거하기
 int solution(string s)
