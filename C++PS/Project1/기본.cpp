@@ -3,7 +3,223 @@
 #include <stack>
 #include <vector>
 #include <algorithm>
+#include <queue>
+#include <cstdio>
+
 using namespace std;
+
+/* 백준 : 11725 
+int N;
+vector<int> graph[100001];
+int parent[100001];
+
+void dfs(int level) {
+	for (auto i : graph[level]) {
+		if (parent[i])
+			continue;
+		parent[i] = level;
+		dfs(i);
+	}
+}
+int main(void) {
+	cin >> N;
+	for (int i = 1; i < N; i++) {
+		int a, b;
+		cin >> a >> b;
+		graph[a].push_back(b);
+		graph[b].push_back(a);
+	}
+	dfs(1);
+	for (int i = 2; i <= N; i++) {
+		cout << parent[i] << "\n";
+	}
+}
+*/
+
+/* 백준 : 2178 
+string graph[101];
+int vis[101][101];
+int N, M;
+int dx[] = { 0,0,1,-1 };
+int dy[] = { 1,-1,0,0 };
+
+void bfs(int x, int y) {
+	queue<pair<int,int>> q;
+	q.push(make_pair(x,y));
+	vis[x][y] = 1;
+	while (!q.empty())
+	{
+		x = q.front().first;
+		y = q.front().second;
+		q.pop();
+		for (int i = 0; i < 4; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (nx < 0 || nx >= N || ny < 0 || ny >= M)
+				continue;
+			if(graph[nx][ny] == '1' && !vis[nx][ny]) {
+				vis[nx][ny] = vis[x][y] + 1;
+				q.push(make_pair(nx, ny));
+			}
+		}
+	}
+}
+
+int main(void) {
+
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
+		cin >> graph[i];
+	}
+	bfs(0, 0);
+	cout << vis[N - 1][M - 1];
+}
+*/ 
+
+/* 백준 : 1260 
+int N, M, V;
+int graph[1001][1001];
+bool vis[1001];
+
+void dfs(int start) {
+	cout << start << " ";
+	vis[start] = 1;
+	for (int i = 1; i <= N; i++) {
+		if(!vis[i] && graph[start][i])
+			dfs(i);
+	}
+}
+
+void bfs(int start) {
+	int t = 0;
+	vis[start] = 1;
+	queue<int> q;
+	q.push(start);
+
+	while (!q.empty())
+	{
+		t = q.front();
+		q.pop();
+		cout << t << " ";
+		for (int i = 1; i <= N; i++) {
+			if (!vis[i] && graph[t][i]) {
+				q.push(i);
+				vis[i] = 1;
+			}
+		}
+	}
+}
+
+int main(void) {
+	cin >> N >> M >> V;
+	for (int i = 0; i < M; i++) {
+		int a, b;
+		cin >> a >> b;
+		graph[a][b] = 1; 
+		graph[b][a] = 1;
+	}
+	dfs(V);
+	for (int i = 1; i <= N; i++)
+		vis[i] = 0;
+	cout << "\n";
+	bfs(V);
+}
+*/
+
+/* 백준 : 11404 
+int n, m;
+vector<vector<int>> graph(101,vector<int>(101,1e9));
+
+void floyd() {
+	for (int k = 0; k < n; k++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i == j){
+					continue;
+				}
+				else {
+					graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j]);
+				}
+			}
+		}
+	}
+}
+
+int main(void) {
+	cin >> n >> m;
+	for (int i = 0; i <m; i++) {
+		int a, b, c;
+		cin >> a >> b >> c;
+		graph[a-1][b-1] = min(graph[a-1][b-1], c);
+	}
+	floyd();
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			if (graph[i][j] == 1e9) {
+				graph[i][j] = 0;
+			}
+			cout << graph[i][j] << " ";
+		}
+		cout << "\n";
+	}
+}
+*/
+/* 백준 : 1753
+vector<pair<int, int>> V[20001];
+int Dist[20002];
+int v,e,start;
+const int INF = 98765432;
+
+void Dijkstra(int a,int b,int c) {
+	for (int i = 1; i <= 20001; i++) Dist[i] = INF;
+	priority_queue<pair<int, int>> pq;
+	pq.push(make_pair(0, c));
+	Dist[c] = 0;
+
+	while (pq.empty()==0) {
+		int Cost = -pq.top().first;
+		int Cur = pq.top().second;
+		pq.pop();
+
+		for (int i = 0; i < V[Cur].size(); i++) {
+			int next = V[Cur][i].first;
+			int nCost = V[Cur][i].second;
+
+			if (Dist[next] > Cost + nCost) {
+				Dist[next] = Cost + nCost;
+				pq.push(make_pair(-Dist[next], next));
+			}
+		}
+	}
+	for (int i = 1; i <= a; i++) {
+		Dist[i] >= INF ? cout << "INF\n" : cout << Dist[i] << "\n";
+	}
+}
+*/
+/* 백준 : 15649
+int n,m;
+int graph[10] = { 0 };
+int vis[10] = { 0 };
+
+void dfs(int t) {
+	if (t == m) {
+		for (int i = 0; i < m; i++) {
+			cout << graph[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+	for (int i = 0; i < n; i++) {
+		if (vis[i] == 0) {
+			graph[t] = i + 1;
+			vis[i] = 1;
+			dfs(t + 1);
+			vis[i] = 0;
+		}
+	}
+}
+*/
+
 
 /* 프로그래머스 : 숫자의 표현 
 int solution(int n) {
@@ -23,10 +239,6 @@ int solution(int n) {
 	return answer;
 }
 */
-
-int main() {
-	solution(15);
-}
 /* 프로그래머스 : 멀리 뛰기 
 long long solution(int n) {
 	long long answer = 0;
