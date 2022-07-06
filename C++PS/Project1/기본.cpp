@@ -5,9 +5,148 @@
 #include <algorithm>
 #include <queue>
 #include <cstdio>
+#include <math.h>
 
 using namespace std;
+/* 백준 : 16173 
+int N;
+int graph[3][3];
+int vis[3][3];
+int dx[2] = {0,1};
+int dy[2] = {1,0};
 
+string bfs() {
+	queue<pair<int, int>> q;
+	q.push(make_pair(0, 0));
+	while (!q.empty())
+	{
+		int x = q.front().first;
+		int y = q.front().second;
+		q.pop();
+		if (graph[x][y] == -1)
+			return "HaruHaru";
+		for (int i = 0; i < 2; i++) {
+			int nx = x + dx[i] * graph[x][y];
+			int ny = y + dy[i] * graph[x][y];
+			if (ny < 0 || nx < 0 || ny >= N || nx >= N)
+				continue;
+			if (!vis[nx][ny]) {
+				vis[nx][ny] = 1;
+				q.push(make_pair(nx, ny));
+			}
+		}
+	}
+	return "Hing";
+	
+}
+int main(void) {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> graph[i][j];
+		}
+	}
+	cout << bfs();
+}
+*/
+
+/* 백준 : 14716 
+int dx[8] = { 1, 0, -1, 0 , 1 , 1,-1,-1 };
+int dy[8] = { 0, 1, 0 , -1, -1, 1,-1, 1 };
+int vis[251][251];
+int graph[251][251];
+int N, M, result;
+
+void bfs(int x, int y) {
+	queue<pair<int, int>> q;
+	vis[x][y] = 1;
+	q.push(make_pair(x, y));
+	while (!q.empty())
+	{
+		x = q.front().first;
+		y = q.front().second;
+		q.pop();
+		for (int i = 0; i < 8; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (ny < 0 || nx < 0 || ny >= N || nx >= M)
+				continue;
+			if (graph[nx][ny] == 1 && !vis[nx][ny]) {
+				vis[nx][ny] = 1;
+				q.push(make_pair(nx, ny));
+			}
+		}
+	}
+}
+
+int main(void) {
+	cin >> M >> N;
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> graph[i][j];
+		}
+	}
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (graph[i][j] == 1 && !vis[i][j]) {
+				bfs(i, j);
+				result++;
+			}
+		}
+	}
+	cout << result;
+}
+*/ 
+
+/* 백준 : 14716 
+int N, M;
+string graph[101];
+int vis[101][101];
+int w_c, b_c;
+int temp = 1;
+int dx[] = { 0,0,1,-1 };
+int dy[] = { 1,-1,0,0 };
+
+void dfs(int y, int x,char d) {
+	vis[y][x] = 1;
+	for (int i = 0; i < 4; i++) {
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if (ny < 0 || nx < 0 || ny >= M || nx >= N)
+			continue;
+		if (graph[ny][nx] == d && vis[ny][nx] == 0) {
+			temp++;
+			dfs(ny, nx, graph[ny][nx]);
+		}
+	}
+}
+
+int main(void) {
+	cin >> N >> M;
+	for (int i = 0; i < M; i++) {
+		cin >> graph[i];
+	}
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (graph[i][j] == 'W' && !vis[i][j]) {
+				dfs(i, j,'W');
+				w_c += pow(temp,2);
+				temp = 1;
+			}
+		}
+	}
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			if (graph[i][j] == 'B' && !vis[i][j]) {
+				dfs(i, j,'B');
+				b_c += pow(temp, 2);
+				temp = 1;
+			}
+		}
+	}
+	cout << w_c << " " << b_c;
+}
+*/ 
 /* 백준 : 11725 
 int N;
 vector<int> graph[100001];
