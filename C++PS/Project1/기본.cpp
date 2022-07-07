@@ -8,6 +8,61 @@
 #include <math.h>
 
 using namespace std;
+
+/* น้มุ : 1652
+int main() {
+	int N;
+	int result1 = 0;
+	int result2 = 0;
+	string v[101];
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		cin >> v[i];
+	}
+	for (int i = 0; i < N; i++) {
+		int j = 0;
+		for (j = 0; j < N-1; j++) {
+			if (v[i][j] == '.' && (v[i][j] == v[i][j + 1])) {
+				result1++;
+				while (v[i][j] != 'X' && j<N-1)
+				{
+					j++;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N-1; j++) {
+			if (v[j][i] == '.' && (v[j][i] == v[j+1][i])) {
+				result2++;
+				while (v[j][i] != 'X' && j < N - 1)
+				{
+					j++;
+				}
+			}
+		}
+	}
+	cout << result1 << " " << result2;
+}
+*/
+/* น้มุ : วฯพแ ฤญ 
+int main() {
+	string v[8];
+	int result = 0;
+	for (int i = 0; i < 8; i++) {
+		cin >> v[i];
+	}
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if ((i + j) % 2 == 0 && v[i][j] == 'F') {
+				result++;
+			}
+		}
+	}
+	cout << result;
+}
+*/
 /* น้มุ : 16173 
 int N;
 int graph[3][3];

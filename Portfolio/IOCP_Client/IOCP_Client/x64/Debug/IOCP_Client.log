@@ -1,3 +1,0 @@
-﻿  IOCP_Client.cpp
-D:\c++\Cpp_study\Portfolio\IOCP_Client\IOCP_Client\IOCP_Client.cpp(79,33): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  IOCP_Client.vcxproj -> D:\c++\Cpp_study\Portfolio\IOCP_Client\x64\Debug\IOCP_Client.exe
