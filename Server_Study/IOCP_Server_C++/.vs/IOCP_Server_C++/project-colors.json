@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a66c3266-ed39-4178-9629-70a2caa0bf86": {
+      "ProjectGuid": "a66c3266-ed39-4178-9629-70a2caa0bf86",
+      "DisplayName": "IOCP_Server_C++",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
