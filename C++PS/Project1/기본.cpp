@@ -6,9 +6,91 @@
 #include <queue>
 #include <cstdio>
 #include <math.h>
+#include <set>
+#include <sstream>
 
 using namespace std;
 
+/* 백준 : 14490 
+vector<string> split(string input, char delimiter) { // split 직접 구현
+	vector<string> result;
+	stringstream ss(input);
+	string temp;
+
+	while (getline(ss,temp,delimiter))
+	{
+		result.push_back(temp);
+	}
+	return result;
+}
+
+int gcd(int a, int b) {
+	if (b == 0)
+		return a;
+	else {
+		return gcd(b, a % b);
+	}
+}
+
+int main() {
+	string s;
+	cin >> s;
+	vector<string> v;
+	v = split(s, ':');
+	int N = gcd(stoi(v[0]), stoi(v[1]));
+	cout << stoi(v[0])/N << ":" << stoi(v[1])/N;
+}
+*/
+
+/* 백준 : 18406
+int main() {
+	int N;
+	cin >> N;
+	int result1 = 0;
+	int result2 = 0;
+	string temp = to_string(N);
+	string temp_1 = temp.substr(0,temp.length()/2);
+	string temp_2 = temp.substr(temp.length() / 2 ,temp.length());
+	for (int i = 0; i < temp.length() / 2; i++) {
+		result1 += (temp_1[i] - '0');
+		result2 += (temp_2[i] - '0');
+	}
+	if (result1 == result2)
+		cout << "LUCKY";
+	else
+		cout << "READY";
+}
+*/
+/*백준 : 11478 
+int main() {
+	string s;
+	cin >> s;
+	set<string> set;
+	string result = "";
+	for (int i = 0; i < s.size(); i++) {
+		for (int j = i; j < s.size(); j++) {
+			result += s[j];
+			set.insert(result);
+		}
+		result = "";
+	}
+	cout << set.size();
+}
+*/
+/* 백준 : 7567 
+int main() {
+	string s;
+	cin >> s;
+	int result = 10;
+	for (int i = 1; i < s.length(); i++) {
+		if (s[i - 1] == s[i])
+			result += 5;
+		else
+			result += 10;
+	}
+	cout << result;
+}
+*/
 /* 백준 : 1652
 int main() {
 	int N;
