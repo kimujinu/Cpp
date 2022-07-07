@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "152aa3cd-9ee5-4422-a3f5-3d721f6ab74e": {
+      "ProjectGuid": "152aa3cd-9ee5-4422-a3f5-3d721f6ab74e",
+      "DisplayName": "IOCP_Client_C++",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
