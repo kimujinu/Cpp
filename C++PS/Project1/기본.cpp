@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <string>
 #include <stack>
 #include <vector>
@@ -11,8 +11,216 @@
 
 using namespace std;
 
-/* ¹éÁØ : 14490 
-vector<string> split(string input, char delimiter) { // split Á÷Á¢ ±¸Çö
+/* ë°±ì¤€ : 1453 
+int main()
+{
+	int N,result=0;
+	cin >> N;
+	int array[101] = {0};
+	for (int i = 0; i < N; i++) {
+		int temp;
+		cin >> temp;
+		if (!array[temp])
+			array[temp] = 1;
+		else
+			result++;
+	}
+	cout << result;
+}
+*/
+/* ë°±ì¤€ : 2161 
+int main()
+{
+	int N;
+	cin >> N;
+	queue<int> q;
+	for (int i = 1; i <= N; i++) {
+		q.push(i);
+	}
+	while (q.size() > 1)
+	{
+		int temp = q.front();
+		q.pop();
+		int temp2 = q.front();
+		q.pop();
+		q.push(temp2);
+		cout << temp << " ";
+	}
+	cout << q.front();
+}
+*/
+/* ë°±ì¤€ : 3085
+int N;
+int result = 1;
+char graph[51][51];
+
+void check() {
+	int temp = 1;
+	for (int i = 0; i < N; i++) {
+		temp = 1;
+		for (int j = 0; j < N; j++) {
+			if (graph[i][j] == graph[i][j + 1]) {
+				temp++;
+			}
+			else {
+				temp = 1;
+			}
+			result = max(temp, result);
+		}
+	}
+
+	for (int i = 0; i < N; i++) {
+		temp = 1;
+		for (int j = 0; j < N; j++) {
+			if (graph[j][i] == graph[j+1][i]) {
+				temp++;
+			}
+			else {
+				temp = 1;
+			}
+			result = max(temp, result);
+		}
+	}
+}
+
+int main() {
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> graph[i][j];
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N-1; j++) {
+			swap(graph[i][j], graph[i][j + 1]);
+			check();
+			swap(graph[i][j], graph[i][j + 1]);
+
+			swap(graph[j][i], graph[j + 1][i]);
+			check();
+			swap(graph[j][i], graph[j + 1][i]);
+		}
+	}
+	cout << result;
+}
+*/
+
+/* ë°±ì¤€ : 2740 (í–‰ë ¬ ê³±ì…ˆ)
+int v1[101][101];
+int v2[101][101];
+int result[101][101];
+
+int main() {
+	int N, M, K;
+	cin >> N >> M;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			cin >> v1[i][j];
+		}
+	}
+	cin >> M >> K;
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < K; j++) {
+			cin >> v2[i][j];
+		}
+	}
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < K; j++) {
+			for (int k = 0; k < M; k++) {
+				result[i][j] += v1[i][k] * v2[k][j];
+			}
+			cout << result[i][j] << " ";
+		}
+		cout << "\n";
+	}
+}
+*/
+/*ë°±ì¤€ : 11723 (ë¹„íŠ¸ë§ˆìŠ¤í¬) 
+  And ì—°ì‚° (&): ëŒ€ì‘í•˜ëŠ” ë‘ ë¹„íŠ¸ê°€ ëª¨ë‘ 1ì´ë©´ 1 ë°˜í™˜
+  1010 & 1111 = 1010
+  OR ì—°ì‚° ( | ): ëŒ€ì‘í•˜ëŠ” ë‘ ë¹„íŠ¸ ì¤‘ í•˜ë‚˜ë¼ë„ 1ì´ë©´ 1 ë°˜í™˜
+  1010 & 1111 = 1111
+  Shift ì—°ì‚° (Â«,Â») : ë¹„íŠ¸ë¥¼ ì™¼ìª½ ë˜ëŠ” ì˜¤ë¥¸ìª½ìœ¼ë¡œ í•œì¹¸ì”© ì´ë™
+  0011 Â« 2 = 1100
+  1010 Â» 1 = 0101
+  XOR ì—°ì‚° (^): ëŒ€ì‘í•˜ëŠ” ë‘ ë¹„íŠ¸ê°€ ë‹¤ë¥´ë©´ 1 ê°™ìœ¼ë©´ 0 ë°˜í™˜
+  1010 ^ 1100 = 0110
+  Not ì—°ì‚° (~) : ë¹„íŠ¸ë¥¼ ë°˜ì „
+  ~1111 = 0000
+
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int T;
+	cin >> T;
+
+	string s;
+	int value, bit = 0;
+	for (int i = 0; i < T; i++) {
+		cin >> s;
+		if (s == "add") {
+			cin >> value;
+			bit |= (1 << value);
+		}
+		else if (s == "remove") {
+			cin >> value;
+			bit &= ~(1 << value);
+		}
+		else if (s == "check") {
+			cin >> value;
+			if (bit & (1 << value))
+				cout << 1 << '\n';
+			else
+				cout << 0 << '\n';
+		}
+		else if (s == "toggle") {
+			cin >> value;
+			bit ^= (1 << value);
+		}
+		else if (s == "all") {
+			bit = (1 << 21) - 1;
+		}
+		else if (s == "empty") {
+			bit = 0;
+		}
+	}
+	return 0;
+}
+*/
+
+/* ë°±ì¤€ : 2775 
+int recursion(int a, int b) {
+	if (a == 0)
+		return b;
+	if (b == 1)
+		return 1;
+	return recursion(a - 1, b) + recursion(a, b - 1);
+}
+
+int main()
+{
+	int T;
+	cin >> T;
+	for (int i = 0; i < T; i++) {
+		int k, n;
+		cin >> k >> n;
+		cout << recursion(k, n) << "\n";
+	}
+}
+*/
+/* ë°±ì¤€ : 10926 
+int main()
+{
+	string s;
+	cin >> s;
+	cout << s << "??!";
+}
+*/
+/* ë°±ì¤€ : 14490 
+vector<string> split(string input, char delimiter) { // split ì§ì ‘ êµ¬í˜„
 	vector<string> result;
 	stringstream ss(input);
 	string temp;
@@ -42,7 +250,7 @@ int main() {
 }
 */
 
-/* ¹éÁØ : 18406
+/* ë°±ì¤€ : 18406
 int main() {
 	int N;
 	cin >> N;
@@ -61,7 +269,7 @@ int main() {
 		cout << "READY";
 }
 */
-/*¹éÁØ : 11478 
+/*ë°±ì¤€ : 11478 
 int main() {
 	string s;
 	cin >> s;
@@ -77,7 +285,7 @@ int main() {
 	cout << set.size();
 }
 */
-/* ¹éÁØ : 7567 
+/* ë°±ì¤€ : 7567 
 int main() {
 	string s;
 	cin >> s;
@@ -91,7 +299,7 @@ int main() {
 	cout << result;
 }
 */
-/* ¹éÁØ : 1652
+/* ë°±ì¤€ : 1652
 int main() {
 	int N;
 	int result1 = 0;
@@ -128,7 +336,7 @@ int main() {
 	cout << result1 << " " << result2;
 }
 */
-/* ¹éÁØ : ÇÏ¾á Ä­ 
+/* ë°±ì¤€ : í•˜ì–€ ì¹¸ 
 int main() {
 	string v[8];
 	int result = 0;
@@ -145,7 +353,7 @@ int main() {
 	cout << result;
 }
 */
-/* ¹éÁØ : 16173 
+/* ë°±ì¤€ : 16173 
 int N;
 int graph[3][3];
 int vis[3][3];
@@ -187,7 +395,7 @@ int main(void) {
 }
 */
 
-/* ¹éÁØ : 14716 
+/* ë°±ì¤€ : 14716 
 int dx[8] = { 1, 0, -1, 0 , 1 , 1,-1,-1 };
 int dy[8] = { 0, 1, 0 , -1, -1, 1,-1, 1 };
 int vis[251][251];
@@ -235,7 +443,7 @@ int main(void) {
 }
 */ 
 
-/* ¹éÁØ : 14716 
+/* ë°±ì¤€ : 14716 
 int N, M;
 string graph[101];
 int vis[101][101];
@@ -284,7 +492,7 @@ int main(void) {
 	cout << w_c << " " << b_c;
 }
 */ 
-/* ¹éÁØ : 11725 
+/* ë°±ì¤€ : 11725 
 int N;
 vector<int> graph[100001];
 int parent[100001];
@@ -312,7 +520,7 @@ int main(void) {
 }
 */
 
-/* ¹éÁØ : 2178 
+/* ë°±ì¤€ : 2178 
 string graph[101];
 int vis[101][101];
 int N, M;
@@ -352,7 +560,7 @@ int main(void) {
 }
 */ 
 
-/* ¹éÁØ : 1260 
+/* ë°±ì¤€ : 1260 
 int N, M, V;
 int graph[1001][1001];
 bool vis[1001];
@@ -402,7 +610,7 @@ int main(void) {
 }
 */
 
-/* ¹éÁØ : 11404 
+/* ë°±ì¤€ : 11404 
 int n, m;
 vector<vector<int>> graph(101,vector<int>(101,1e9));
 
@@ -440,7 +648,7 @@ int main(void) {
 	}
 }
 */
-/* ¹éÁØ : 1753
+/* ë°±ì¤€ : 1753
 vector<pair<int, int>> V[20001];
 int Dist[20002];
 int v,e,start;
@@ -472,7 +680,7 @@ void Dijkstra(int a,int b,int c) {
 	}
 }
 */
-/* ¹éÁØ : 15649
+/* ë°±ì¤€ : 15649
 int n,m;
 int graph[10] = { 0 };
 int vis[10] = { 0 };
@@ -497,7 +705,7 @@ void dfs(int t) {
 */
 
 
-/* ÇÁ·Î±×·¡¸Ó½º : ¼ıÀÚÀÇ Ç¥Çö 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ìˆ«ìì˜ í‘œí˜„ 
 int solution(int n) {
 	int answer = 0;
 	for (int i = 1; i <= n; i++) {
@@ -515,7 +723,7 @@ int solution(int n) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ¸Ö¸® ¶Ù±â 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ë©€ë¦¬ ë›°ê¸° 
 long long solution(int n) {
 	long long answer = 0;
 	int dp[2001] = { 0 };
@@ -528,7 +736,7 @@ long long solution(int n) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ¿Ã¹Ù¸¥ °ıÈ£ 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì˜¬ë°”ë¥¸ ê´„í˜¸ 
 bool solution(string s)
 {
 	stack<char> st;
@@ -549,7 +757,7 @@ bool solution(string s)
 		return false;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ÁÖ½Ä°¡°İ
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì£¼ì‹ê°€ê²©
 vector<int> solution(vector<int> prices) {
 	vector<int> answer;
 	for (int i = 0; i < prices.size(); i++) {
@@ -568,7 +776,7 @@ vector<int> solution(vector<int> prices) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : Ä«Æê 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì¹´í« 
 vector<int> solution(int brown, int yellow) {
 	vector<int> answer;
 	int len = brown / 2 + 2;
@@ -584,7 +792,7 @@ vector<int> solution(int brown, int yellow) {
 	return vector<int>{w,h};
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : H-Index
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : H-Index
 int solution(vector<int> citations) {
 	sort(citations.begin(), citations.end(), greater<int>());
 	for (int i = 0; i < citations.size(); i++) {
@@ -595,7 +803,7 @@ int solution(vector<int> citations) {
 */
 
 
-/* ÇÁ·Î±×·¡¸Ó½º : Â¦Áö¾î Á¦°ÅÇÏ±â
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì§ì§€ì–´ ì œê±°í•˜ê¸°
 int solution(string s)
 {
 	stack<char> st;
@@ -618,7 +826,7 @@ int solution(string s)
 }
 */
 
-/* ÇÁ·Î±×·¡¸Ó½º : ÇØ½Ã 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : í•´ì‹œ 
 int solution(vector<vector<string>> clothes) {
 	int answer = 1;
 	map<string, int> cloth;
@@ -638,7 +846,7 @@ int solution(vector<vector<string>> clothes) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : 2 x n Å¸ÀÏ¸µ 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : 2 x n íƒ€ì¼ë§ 
 int solution(int n) {
 	int answer = 0;
 	const int condition = 1000000007;
@@ -653,7 +861,7 @@ int solution(int n) {
 }
 */
 
-/* ÇÁ·Î±×·¡¸Ó½º : ¹è´Ş 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ë°°ë‹¬ 
 vector<pair<int, int>> V[55];
 vector<int> Dist;
 
@@ -698,7 +906,7 @@ int solution(int N, vector<vector<int> > road, int K) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : °ıÈ£ È¸ÀüÇÏ±â 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ê´„í˜¸ íšŒì „í•˜ê¸° 
 bool check(string s) {
 	stack<char> stack;
 	for (char c : s) {
@@ -746,7 +954,7 @@ int solution(string s) {
 }
 */
 
-/* ÇÁ·Î±×·¡¸Ó½º : ¿¹»ó ´ëÁøÇ¥ 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì˜ˆìƒ ëŒ€ì§„í‘œ 
 int solution(int n, int a, int b)
 {
 	int answer = 0;
@@ -758,7 +966,7 @@ int solution(int n, int a, int b)
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : °ÔÀÓ¸Ê ÃÖ´Ü °Å¸®
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ê²Œì„ë§µ ìµœë‹¨ ê±°ë¦¬
 int check[101][101];
 int dx[] = { 0,0,1,-1 };
 int dy[] = { 1,-1,0,0 };
@@ -801,7 +1009,7 @@ int solution(vector<vector<int> > maps)
 
 */ 
 
-/* ÇÁ·Î±×·¡¸Ó½º : °¡Àå Å« ¼ö
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ê°€ì¥ í° ìˆ˜
 bool compare(const string &a, const string &b) {
 	if (b + a < a + b)
 		return true;
@@ -824,7 +1032,7 @@ string solution(vector<int> numbers) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ÇÁ¸°ÅÍ 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : í”„ë¦°í„° 
 int solution(vector<int> priorities, int location) {
 	queue<int> q;
 	vector<int> sorted;
@@ -847,7 +1055,7 @@ int solution(vector<int> priorities, int location) {
 	}
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ÀüÈ­¹øÈ£ ¸ñ·Ï 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ì „í™”ë²ˆí˜¸ ëª©ë¡ 
 bool solution(vector<string> phone_book) {
 	bool answer = true;
 	sort(phone_book.begin(), phone_book.end());
@@ -860,7 +1068,7 @@ bool solution(vector<string> phone_book) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ´õ ¸Ê°Ô 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ë” ë§µê²Œ 
 int solution(vector<int> scoville, int K) {
 	int answer = 0;
 	int Hot;
@@ -885,7 +1093,7 @@ int solution(vector<int> scoville, int K) {
 	return answer;
 }
 */
-/* ÇÁ·Î±×·¡¸Ó½º : ±â´É °³¹ß 
+/* í”„ë¡œê·¸ë˜ë¨¸ìŠ¤ : ê¸°ëŠ¥ ê°œë°œ 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
 	vector<int> answer;
 	queue<int> queue;
