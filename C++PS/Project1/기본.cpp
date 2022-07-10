@@ -11,6 +11,65 @@
 
 using namespace std;
 
+/* 백준 : 10162 
+int main() {
+	int T;
+	cin >> T;
+	int A = 0;
+	int B = 0;
+	int C = 0;
+	if (T % 10 != 0) {
+		cout << "-1";
+	}else {
+		A = T / 300;
+		B = (T % 300) / 60;
+		C = ((T % 300) % 60) / 10;
+		cout << A << " " << B << " " << C;
+	}
+	return 0;
+}
+*/
+/* 백준 : 13305 
+
+int dis[100000];
+int city[100000];
+
+int main() {
+	int N;
+	long long result = 0;
+	cin >> N;
+	for (int i = 0; i < N - 1; i++) {
+		cin >> dis[i];
+	}
+	for (int i = 0; i < N; i++) {
+		cin >> city[i];
+	}
+	long long value = 1000000000;
+	for (int i = 0; i < N-1; i++) {
+		if (city[i] < value) {
+			value = city[i];
+		}
+		result += value * dis[i];
+	}
+	cout << result;
+}
+*/
+/* 백준 : 1789 
+int main() {
+	long long S;
+	cin >> S;
+	int count = 0;
+	int num = 1;
+	long long total = 0;
+	while (total <= S)
+	{
+		total += num;
+		count++;
+		num++;
+	}
+	cout << count - 1;
+}
+*/
 /* 백준 : 1453 
 int main()
 {
