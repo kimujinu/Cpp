@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <cstring>
 #include <stack>
 #include <vector>
 #include <algorithm>
@@ -11,6 +12,78 @@
 
 using namespace std;
 
+/* 백준 : 2668 
+int N;
+vector<int> v;
+int graph[101];
+int vis[101];
+int result = 0;
+
+void dfs(int level,int cur) {
+	if (vis[cur] == 0) {
+		vis[cur] = level;
+		dfs(level, graph[cur]);
+	}
+	else if (cur == level) {
+		v.push_back(level);
+		return;
+	}
+}
+
+int main() {
+	cin >> N;
+	for (int i = 1; i <=N; i++) {
+		cin >> graph[i];
+	}
+	for (int i = 1; i <= N; i++) {
+		memset(vis, 0, sizeof(vis)); // 메모리 특정값으로 세팅
+		dfs(i,i);
+	}
+	cout << v.size() << "\n";
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << "\n";
+	}
+}
+*/
+/* 백준 : 13565 
+string graph[1001];
+int vis[1001][1001];
+int dx[] = { 0,0,1,-1 };
+int dy[] = { 1,-1,0,0 };
+int M, N;
+string result = "NO";
+
+void dfs(int a,int b) {
+	if (a == M - 1)
+		result = "YES";
+	for (int i = 0; i < 4; i++) {
+		int nx = a + dx[i];
+		int ny = b + dy[i];
+		if (ny < 0 || nx < 0 || ny >= N || nx >= M)
+			continue;
+		if (graph[nx][ny] == '0' && !vis[nx][ny]) {
+			vis[nx][ny] = 1;
+			dfs(nx, ny);
+		}
+	}
+}
+
+int main() {
+	cin >> M >> N;
+	for (int i = 0; i < M; i++) {
+		cin >> graph[i];
+	}
+	for (int i = 0; i < 1; i++) {
+		for (int j = 0; j < N; j++) {
+			if (graph[i][j] == '0') {
+				vis[i][j] = 1;
+				dfs(i, j);
+			}
+		}
+	}
+	cout << result;
+}
+*/
 /* 백준 : 1009
 int main() {
 	int T;
