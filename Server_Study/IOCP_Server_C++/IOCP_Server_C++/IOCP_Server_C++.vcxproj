@@ -147,7 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IOCompletionPort.cpp" />
+    <ClCompile Include="CommonClass.cpp" />
+    <ClCompile Include="IocpBase.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -157,7 +158,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IOCompletionPort.h" />
+    <ClInclude Include="CommonClass.h" />
+    <ClInclude Include="IocpBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
