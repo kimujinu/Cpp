@@ -11,6 +11,40 @@
 
 using namespace std;
 
+/* 백준 : 1009
+int main() {
+	int T;
+	cin >> T;
+	for (int i = 0; i < T; i++) {
+		int a, b;
+		cin >> a >> b;
+		int result = 1;
+		for (int j = 0; j < b;j++) {
+			result = (result * a) % 10;
+		}
+		if (result == 0) {
+			result = 10;
+		}
+		cout << result << "\n";
+	}
+}
+*/
+/* 백준 : 2455 
+int main() {
+	int result = 0;
+	int temp = 0;
+	int a, b;
+	cin >> a >> b;
+	temp = b;
+	for (int i = 0; i < 3; i++) {
+		int c, d;
+		cin >> c >> d;
+		temp = temp + (d - c);
+		result = max(result, temp);
+	}
+	cout << result;
+}
+*/
 /* 백준 : 10162 
 int main() {
 	int T;
