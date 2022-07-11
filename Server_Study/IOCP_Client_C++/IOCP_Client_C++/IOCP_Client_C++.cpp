@@ -2,10 +2,16 @@
 //
 
 #include "pch.h"
+#include "CommonClass.h"
+
 #include <iostream>
 #include <WinSock2.h>
+#include <sstream>
+#include <map>
 
 #pragma comment(lib, "ws2_32.lib")
+
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 
 using namespace std;
 
@@ -25,7 +31,7 @@ struct stSOCKETINFO
 int main()
 {
     WSADATA wsaData;
-    int nResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    int nResult = WSAStartup(MAKEWORD(2, 2), &wsaData); // 윈속 버전을 2.2로 초기화
     if (nResult != 0) {
         cout << "Error : " << WSAGetLastError() << "\n";
         return false;
@@ -45,7 +51,8 @@ int main()
     char sz_socketbuf[MAX_BUFFER];
 
     stServerAddr.sin_family = AF_INET;
-    stServerAddr.sin_port = htons(SERVER_PORT);
+    // 접속할 서버 포트 및 IP
+    stServerAddr.sin_port = htons(SERVER_PORT); 
     stServerAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     nResult = connect(clientSocket, (sockaddr*)&stServerAddr, sizeof(sockaddr));
@@ -55,6 +62,27 @@ int main()
     }
 
     cout << "Connection success..." << "\n";
+
+    stringstream SendStream;
+    SendStream << EPacketType::SIGNUP << "\n";
+    SendStream << "test" << "\n";
+    SendStream << "test2" << "\n";
+
+    int nSend = send(clientSocket, (CHAR*)SendStream.str().c_str(), SendStream.str().length(), 0);
+
+    int nRecv = recv(clientSocket, sz_socketbuf, MAX_BUFFER, 0);
+
+    stringstream RecvStream;
+    bool result;
+    RecvStream << sz_socketbuf;
+    RecvStream >> result;
+    printf_s("%d\n", result);
+
+    closesocket(clientSocket);
+    WSACleanup();
+    cout << "Client has been terminated.." << "\n";
+
+    /*
 
     while (true)
     {
@@ -90,6 +118,7 @@ int main()
     }
     closesocket(clientSocket);
     cout << "Client has been terminated.." << "\n";
+    */
 
     return 0;
 }
