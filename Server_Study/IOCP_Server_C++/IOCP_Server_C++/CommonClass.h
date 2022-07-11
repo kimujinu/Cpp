@@ -24,6 +24,40 @@ enum COMMONCLASS_API EPacketType
 	SIGNUP
 };
 
+class COMMONCLASS_API cCharactersInfo
+{
+public:
+	cCharactersInfo();
+	~cCharactersInfo();
+
+	map<int, cCharactersInfo> players;
+
+	friend ostream& operator<<(ostream& stream, cCharactersInfo& info)
+	{
+		stream << info.players.size() << endl;
+		for (auto& kvp : info.players)
+		{
+			stream << kvp.first << endl;
+			stream << kvp.second << endl;
+		}
+		return stream;
+	}
+
+	friend istream& operator>>(istream& stream, cCharactersInfo& info)
+	{
+		int nPlayers = 0;
+		int SessionId = 0;
+		info.players.clear();
+
+		stream >> nPlayers;
+		for (int i = 0; i < nPlayers; i++) {
+			stream >> SessionId;
+		}
+
+		return stream;
+	}
+};
+
 class COMMONCLASS_API CommonClass
 {
 public:

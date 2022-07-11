@@ -95,7 +95,7 @@ void IocpBase::StartServer()
 	hIOCP = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
 
 	// Worker Thread 생성
-	if (!CreateWorkThread())
+	if (!CreateWorkerThread())
 		return;
 
 	printf_s("[INFO] 서버 시작..\n");
@@ -144,7 +144,7 @@ void IocpBase::StartServer()
 	}
 }
 
-bool IocpBase::CreateWorkThread()
+bool IocpBase::CreateWorkerThread()
 {
 	return false;
 }

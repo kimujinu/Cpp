@@ -44,7 +44,7 @@ public:
 	// 서버 시작
 	virtual void StartServer();
 	// 작업 스레드 생성
-	virtual bool CreateWorkThread();
+	virtual bool CreateWorkerThread();
 	// 작업 스레드 
 	virtual void WorkerThread();
 	// 클라이언트에게 송신

@@ -148,8 +148,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CommonClass.cpp" />
+    <ClCompile Include="DBConnector.cpp" />
     <ClCompile Include="IocpBase.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainIocp.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -159,7 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonClass.h" />
+    <ClInclude Include="DBConnector.h" />
     <ClInclude Include="IocpBase.h" />
+    <ClInclude Include="MainIocp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
