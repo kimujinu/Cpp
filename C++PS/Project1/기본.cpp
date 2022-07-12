@@ -11,7 +11,123 @@
 #include <sstream>
 
 using namespace std;
+/* 백준 : 1057 
+int main() {
+	int n;
+	double k, i;
+	int count = 0;
+	cin >> n >> k >> i;
 
+	while (k != i)
+	{
+		k = ceil(k / 2);
+		i = ceil(i / 2);
+		count++;
+	}
+	cout << count;
+}
+*/
+/* 백준 : 9613 
+int gcd(int a, int b) {
+	if (b == 0)
+		return a;
+	else {
+		return gcd(b, a % b);
+	}
+}
+
+int main() {
+	int t;
+	int v[101];
+	cin >> t;
+	for (int i = 0; i < t; i++) {
+		long long result = 0;
+		int n;
+		cin >> n;
+		for (int j = 0; j < n; j++) {
+			cin >> v[j];
+		}
+		for (int j = 0; j < n; j++) {
+			for (int k = j+1; k < n; k++) {
+				result += gcd(v[j], v[k]);
+			}
+		}
+		cout << result << "\n";
+	}
+}
+*/
+
+/* 백준 : 10974 
+int N,result = 0;
+vector<int> V;
+int vis[9];
+
+void backtracking(int value,vector<int> v,int level) {
+	if (level == N) {
+		for (int i : v) {
+			cout << i << " ";
+		}
+		cout << "\n";
+	}
+	for (int i = 1; i <= N; i++) {
+		if (!vis[i])
+		{
+			vis[i] = 1;
+			v.push_back(i);
+			backtracking(i, v, level+1);
+			v.pop_back();
+			vis[i] = 0;;
+		}
+	}
+}
+
+int main() {
+	cin >> N;
+	backtracking(0,V,0);
+}
+*/
+
+/* 백준 : 1476 
+int main() {
+	int E, S, M;
+	int year = 1;
+	cin >> E >> S >> M; // 15 28 19
+	while (true)
+	{
+		if ((year - E) % 15 == 0 && (year - S) % 28 == 0 && (year - M) % 19 == 0) {
+			cout << year;
+			exit(0);
+		}
+		else {
+			year++;
+		}
+	}
+}
+*/
+/* 백준 : 1436 
+int main()
+{
+	int n, count = 0,result=0;
+	cin >> n;
+	int ans = 0;
+	while (count != n)
+	{
+		result++;
+		int temp = result;
+		while (temp != 0)
+		{
+			if (temp % 1000 == 666) {
+				++count;
+				break;
+			}
+			else {
+				temp /= 10;
+			}
+		}
+	}
+	cout << result;
+}
+*/
 /* 백준 : 2668 
 int N;
 vector<int> v;

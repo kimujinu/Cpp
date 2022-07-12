@@ -2,11 +2,11 @@
 //
 
 #include "pch.h"
-#include "IOCompletionPort.h"
+#include "MainIocp.h"
 
 int main()
 {
-	IOCompletionPort iocp_server;
+	MainIocp iocp_server;
 	if (iocp_server.Initialize()) {
 		iocp_server.StartServer();
 	}
