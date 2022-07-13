@@ -11,6 +11,29 @@
 #include <sstream>
 
 using namespace std;
+/* 백준 : 1769 
+int main() {
+	string s;
+	int count = 0;
+	cin >> s;
+	while (s.length() > 1)
+	{	
+		count++;
+		int temp = 0;
+		for (char c : s) {
+			temp += c - '0';
+		}
+		s = to_string(temp);
+	}
+	cout << count << "\n";
+	if (stoi(s) % 3 == 0) {
+		cout << "YES";
+	}
+	else {
+		cout << "NO";
+	}
+}
+*/
 /* 백준 : 1057 
 int main() {
 	int n;
