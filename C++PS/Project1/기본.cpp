@@ -11,6 +11,91 @@
 #include <sstream>
 
 using namespace std;
+/* 백준 : 11286 
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	priority_queue<pair<int,int>> pq;
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int temp;
+		cin >> temp;
+		if (temp == 0) {
+			if (pq.size() > 0) {
+				cout << -pq.top().second << "\n";
+				pq.pop();
+			}
+			else {
+				cout << 0 << "\n";
+			}
+		}
+		else {
+			pq.push(make_pair(-abs(temp), -temp));
+		}
+	}
+}
+*/
+/* 백준 : 11279
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	priority_queue<int> pq;
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int temp;
+		cin >> temp;
+		if (temp == 0) {
+			if (pq.size() > 0) {
+				cout << pq.top() << "\n";
+				pq.pop();
+			}
+			else {
+				cout << 0 << "\n";
+			}
+		}
+		else {
+			pq.push(temp);
+		}
+	}
+}
+*/
+/* 백준 : 1927 
+int main() {
+	
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	priority_queue<int> pq;
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int temp;
+		cin >> temp;
+		if (temp == 0) {
+			if (pq.size() > 0) {
+				cout << -pq.top() << "\n";
+				pq.pop();
+			}
+			else {
+				cout << 0 << "\n";
+			}
+		}
+		else {
+			pq.push(-temp);
+		}
+	}
+}
+*/
+
 /* 백준 : 1769 
 int main() {
 	string s;
