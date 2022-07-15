@@ -13,7 +13,7 @@ bool DBConnector::Connect(const string& Server, const string& User, const string
 {
 	//Conn = mysql_init(NULL);
 	if (!mysql_real_connect(
-		Conn, Server.c_str, User.c_str(), Password.c_str(), Database.c_str(), Port, NULL, 0)
+		Conn, Server.c_str(), User.c_str(), Password.c_str(), Database.c_str(), Port, NULL, 0)
 		)
 	{
 		printf_s("[DB] DB 접속 실패\n");

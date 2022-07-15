@@ -1,5 +1,6 @@
 #pragma once
-//#include "mysql.h"
+#pragma comment (lib, "libmysql.lib")
+#include "mysql.h"
 #include <string>
 
 using namespace std;
@@ -27,7 +28,7 @@ public:
 	bool SignUpAccount(const string& Id, const string& Password);
 
 private:
-	//MYSQL* Conn; // 커넥터
-	//MYSQL_RES Res; // 결과값
-	//MYSQL_ROW Row; // 결과 row
+	MYSQL* Conn; // 커넥터
+	MYSQL_RES * Res; // 결과값
+	MYSQL_ROW Row; // 결과 row
 };
