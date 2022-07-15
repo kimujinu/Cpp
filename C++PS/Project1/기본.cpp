@@ -11,6 +11,56 @@
 #include <sstream>
 
 using namespace std;
+
+int N, M;
+int graph[101][101];
+
+void floyd() {
+	for (int k = 1; k <=N; k++) {
+		for (int i = 1; i <=N; i++) {
+			for (int j = 1; j <=N; j++) {
+				if (i == j) {
+					continue;
+				}
+				else if(graph[i][k] && graph[k][j]) {
+					if (graph[i][j] == 0) {
+						graph[i][j] = graph[i][k] + graph[k][j];
+					}
+					else {
+						graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j]);
+					}
+				}
+			}
+		}
+	}
+}
+
+int main() {
+	cin >> N >> M;
+
+	for (int i = 0; i < M; i++) {
+		int A, B;
+		cin >> A >> B;
+		graph[A][B] = graph[B][A] = 1;
+	}
+
+	floyd();
+
+	int result = 987654321;
+	int ans;
+	for (int i = 1; i <= N; i++) {
+		int temp = 0;
+		for (int j = 1; j <= N; j++) {
+			temp += graph[i][j];
+		}
+		if (result > temp) {
+			result = temp;
+			ans = i;
+		}
+	}
+	cout << ans << "\n";
+}
+
 /* 백준 : 11286 
 int main() {
 
