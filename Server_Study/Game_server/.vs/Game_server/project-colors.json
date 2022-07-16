@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "7e9cf24e-d9e2-4e61-bf13-5d718c00fb6f": {
+      "ProjectGuid": "7e9cf24e-d9e2-4e61-bf13-5d718c00fb6f",
+      "DisplayName": "Game_server",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
