@@ -12,6 +12,164 @@
 
 using namespace std;
 
+/* 백준 : 24444 
+int N, M, R;
+vector<int> graph[100001];
+vector<int> vis(100001, 0);
+int cnt = 1;
+
+void bfs(int start) {
+	queue<int> q;
+	vis[start] = cnt++;
+	q.push(start);
+	while (!q.empty())
+	{
+		int x = q.front();
+		q.pop();
+
+		for (int i = 0; i < graph[x].size(); i++) {
+			int nx = graph[x][i];
+			if (!vis[nx]) {
+				vis[nx] = cnt++;
+				q.push(nx);
+			}
+		}
+	}
+}
+
+int main() {
+	cin >> N >> M >> R;
+	for (int i = 0; i < M; i++) {
+		int u, v;
+		cin >> u >> v;
+		graph[u].push_back(v);
+		graph[v].push_back(u);
+	}
+	for (int i = 1; i <= N; i++)
+		sort(graph[i].begin(), graph[i].end());
+	
+	bfs(R);
+
+	for (int i = 1; i <= N;i++) {
+		cout << vis[i] << "\n";
+	}
+}
+*/
+
+/* 백준 : 24480 
+int N, M, R;
+vector<int> graph[100001];
+vector<int> vis(100001, 0);
+int cnt = 1;
+
+void dfs(int start) {
+	vis[start] = cnt++;
+	for (int x : graph[start]) {
+		if (vis[x] == 0) {
+			dfs(x);
+		}
+	}
+}
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M >> R;
+	for (int i = 0; i < M; i++) {
+		int u, v;
+		cin >> u >> v;
+		graph[u].push_back(v);
+		graph[v].push_back(u);
+	}
+	for (int i = 1; i <= N; i++)
+		sort(graph[i].begin(), graph[i].end(),greater<int>());
+
+	dfs(R);
+	for (int i = 1; i <= N; i++) {
+		cout << vis[i] << "\n";
+	}
+}
+*/
+/* 백준 : 24479 
+int N, M, R;
+vector<int> graph[100001];
+vector<int> vis(100001,0);
+int cnt = 1;
+
+void dfs(int start) {
+	vis[start] = cnt++;
+	for (int x : graph[start]) {
+		if (vis[x] == 0) {
+			dfs(x);
+		}
+	}
+}
+int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N >> M >> R;
+	for (int i = 0; i < M; i++) {
+		int u, v;
+		cin >> u >> v;
+		graph[u].push_back(v);
+		graph[v].push_back(u);
+	}
+	for (int i = 1; i <= N; i++)
+		sort(graph[i].begin(), graph[i].end());
+
+	dfs(R);
+	for (int i = 1; i <= N; i++) {
+		cout << vis[i] << "\n";
+	}
+}
+*/
+/* 백준 : 15900 
+int N;
+vector<int> tree[500001];
+bool vis[500001];
+int result = 0;
+
+void dfs(int level, int count) {
+	if (tree[level].size() == 1 && level != 1) {
+		result += count;
+		return;
+	}
+	for (int i = 0; i < tree[level].size(); i++) {
+		if (!vis[tree[level][i]]) {
+			vis[tree[level][i]] = true;
+			dfs(tree[level][i], count + 1);
+			vis[tree[level][i]] = false;
+		}
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> N;
+	for (int i = 0; i < N - 1; i++) {
+		int a, b;
+		cin >> a >> b;
+		tree[a].push_back(b);
+		tree[b].push_back(a);
+	}
+	vis[1] = true;
+	dfs(1, 0);
+	if (result % 2 == 1)
+		cout << "Yes" << "\n";
+	else
+		cout << "No" << "\n";
+}
+*/
+
+/* 백준 
 int N, M;
 int graph[101][101];
 
@@ -60,7 +218,7 @@ int main() {
 	}
 	cout << ans << "\n";
 }
-
+*/
 /* 백준 : 11286 
 int main() {
 
