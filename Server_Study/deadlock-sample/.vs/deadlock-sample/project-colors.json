@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "02f99472-365b-4019-bb27-f9c2c49aa75b": {
+      "ProjectGuid": "02f99472-365b-4019-bb27-f9c2c49aa75b",
+      "DisplayName": "deadlock-sample",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
