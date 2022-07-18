@@ -29,16 +29,17 @@ namespace NServerNetLib
 		RECV_CLIENT_MAX_PACKET = 35,
 	};
 
+
 	const int MAX_NET_ERROR_STRING_COUNT = 64;
 	struct NetError
 	{
-		NetError(NET_ERROR_CODE code) 
+		NetError(NET_ERROR_CODE code)
 		{
 			Error = code;
 		}
 
 		NET_ERROR_CODE Error = NET_ERROR_CODE::NONE;
 		wchar_t Msg[MAX_NET_ERROR_STRING_COUNT] = { 0, };
-		int Value = 0;
+		int Vlaue = 0;
 	};
 }

@@ -179,7 +179,7 @@ void MainIocp::WorkerThread()
 	}
 }
 
-void MainIocp:: (stringstream& RecvStream, stSOCKETINFO* pSocket)
+void MainIocp::SignUp(stringstream& RecvStream, stSOCKETINFO* pSocket)
 {
 	string Id;
 	string Pw;

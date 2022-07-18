@@ -11,7 +11,24 @@
 #include <sstream>
 
 using namespace std;
-
+/* 백준 : 10973 
+int N;
+int main() {
+	cin >> N;
+	vector<int>v(N);
+	for (int i = 0; i < N; i++) {
+		cin >> v[i];
+	}
+	if (prev_permutation(v.begin(), v.end())) {
+		for (int i = 0; i < N; i++) {
+			cout << v[i] << ' ';
+		}
+	}
+	else {
+		cout << -1;
+	}
+}
+*/
 /* 백준 : 24444 
 int N, M, R;
 vector<int> graph[100001];

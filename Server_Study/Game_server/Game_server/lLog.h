@@ -11,18 +11,19 @@ namespace NServerNetLib
 
 	enum class LOG_TYPE : short
 	{
-		L_TRACE = 1,
-		L_DEBUG = 2,
-		L_WARN = 3,
-		L_ERROR = 4,
-		L_INFO = 5,
+		L_TRACE = 1
+		, L_DEBUG = 2
+		, L_WARN = 3
+		, L_ERROR = 4
+		, L_INFO = 5,
 	};
 
-	class lLog
+
+	class ILog
 	{
 	public:
-		lLog(){}
-		virtual ~lLog() {}
+		ILog() {}
+		virtual ~ILog() {}
 
 		virtual void Write(const LOG_TYPE nType, const char* pFormat, ...)
 		{
@@ -33,8 +34,8 @@ namespace NServerNetLib
 #ifdef _WIN32
 			vsprintf_s(szText, MAX_LOG_STRING_LENGTH, pFormat, args);
 #else
-			vsnprintf_s(szText, MAX_LOG_STRING_LENGTH, pFormat, args);
-#endif 
+			vsnprintf(szText, MAX_LOG_STRING_LENGTH, pFormat, args);
+#endif
 			va_end(args);
 
 			switch (nType)
@@ -59,11 +60,13 @@ namespace NServerNetLib
 			}
 		}
 
+
 	protected:
 		virtual void Error(const char* pText) = 0;
 		virtual void Warn(const char* pText) = 0;
 		virtual void Debug(const char* pText) = 0;
 		virtual void Trace(const char* pText) = 0;
 		virtual void Info(const char* pText) = 0;
+
 	};
 }

@@ -5,6 +5,7 @@
 #include "lLog.h"
 #include "TcpNetwork.h"
 
+
 namespace NServerNetLib
 {
 	TcpNetwork::TcpNetwork()
@@ -26,14 +27,13 @@ namespace NServerNetLib
 		}
 	}
 
-	NET_ERROR_CODE TcpNetwork::Init(const ServerConfig* pConfig, lLog* pLogger)
+	NET_ERROR_CODE TcpNetwork::Init(const ServerConfig* pConfig, ILog* pLogger)
 	{
 		std::memcpy(&m_Config, pConfig, sizeof(ServerConfig));
 
 		m_pRefLogger = pLogger;
 
 		auto initRet = InitServerSocket();
-
 		if (initRet != NET_ERROR_CODE::NONE)
 		{
 			return initRet;
@@ -50,7 +50,7 @@ namespace NServerNetLib
 
 		auto sessionPoolSize = CreateSessionPool(pConfig->MaxClientCount + pConfig->ExtraClientCount);
 
-		m_pRefLogger->Write(LOG_TYPE::L_INFO, "%s I Session Pool Size: %d", __FUNCTION__, sessionPoolSize);
+		m_pRefLogger->Write(LOG_TYPE::L_INFO, "%s | Session Pool Size: %d", __FUNCTION__, sessionPoolSize);
 
 		return NET_ERROR_CODE::NONE;
 	}
@@ -60,23 +60,22 @@ namespace NServerNetLib
 		WSACleanup();
 	}
 
-	RecvPackInfo TcpNetwork::GetPacketInfo()
+	RecvPacketInfo TcpNetwork::GetPacketInfo()
 	{
-		RecvPackInfo packInfo;
+		RecvPacketInfo packetInfo;
 
 		if (m_PacketQueue.empty() == false)
 		{
-			packInfo = m_PacketQueue.front();
+			packetInfo = m_PacketQueue.front();
 			m_PacketQueue.pop_front();
 		}
 
-		return packInfo;
+		return packetInfo;
 	}
 
 	void TcpNetwork::ForcingClose(const int sessionIndex)
 	{
-		if (m_ClientSessionPool[sessionIndex].IsConnected() == false)
-		{
+		if (m_ClientSessionPool[sessionIndex].IsConnected() == false) {
 			return;
 		}
 
@@ -86,11 +85,10 @@ namespace NServerNetLib
 	void TcpNetwork::Run()
 	{
 		auto read_set = m_Readfds;
-		// 연결된 모든 세션을 write 이벤트를 조사하고 있는데 사실 다 할 필요는 없다.
-		// 이전에 send 버퍼가 다 찼던 세션만 조사해도 된다.
+		//연결된 모든 세션을 write 이벤트를 조사하고 있는데 사실 다 할 필요는 없다. 이전에 send 버퍼가 다 찼던 세션만 조사해도 된다.
 		auto write_set = m_Readfds;
 
-		timeval timeout{ 0,1000 }; //tv_sec, tv_usec
+		timeval timeout{ 0, 1000 }; //tv_sec, tv_usec
 
 		auto selectResult = select(0, &read_set, &write_set, 0, &timeout);
 
@@ -115,22 +113,22 @@ namespace NServerNetLib
 		{
 			return false;
 		}
-		else if (result == -1) // 리눅스에서 signal을 핸들링하지 않았는데 시그널이 발생하면 select에서 받아서 결과값이 -1이 나온다. 
+		else if (result == -1)
 		{
+			//linux에서 signal을 핸드링하지 않았는데 시그날이 발생하면 select에서 받아서 결과가 -1이 나온다
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	void TcpNetwork::RunCheckSelectClients(fd_set& read_set, fd_set& write_set)
 	{
-		for (int i = 0; i < m_ClientSessionPool.size(); i++)
+		for (int i = 0; i < m_ClientSessionPool.size(); ++i)
 		{
 			auto& session = m_ClientSessionPool[i];
 
-			if (session.IsConnected() == false)
-			{
+			if (session.IsConnected() == false) {
 				continue;
 			}
 
@@ -183,7 +181,7 @@ namespace NServerNetLib
 			return NET_ERROR_CODE::CLIENT_SEND_BUFFER_FULL;
 		}
 
-		PacketHeader pktHeader{ totalSize, packetId,(uint8_t)0 };
+		PacketHeader pktHeader{ totalSize, packetId, (uint8_t)0 };
 		memcpy(&session.pSendBuffer[pos], (char*)&pktHeader, PACKET_HEADER_SIZE);
 
 		if (bodySize > 0)
@@ -198,7 +196,7 @@ namespace NServerNetLib
 
 	int TcpNetwork::CreateSessionPool(const int maxClientCount)
 	{
-		for (int i = 0; i < maxClientCount; i++)
+		for (int i = 0; i < maxClientCount; ++i)
 		{
 			ClientSession session;
 			session.Clear();
@@ -265,6 +263,7 @@ namespace NServerNetLib
 			return NET_ERROR_CODE::SERVER_SOCKET_BIND_FAIL;
 		}
 
+
 		auto netError = SetNonBlockSocket(m_ServerSockfd);
 		if (netError != NET_ERROR_CODE::NONE)
 		{
@@ -278,16 +277,16 @@ namespace NServerNetLib
 
 		m_MaxSockFD = m_ServerSockfd;
 
-		m_pRefLogger->Write(LOG_TYPE::L_INFO, "%s I Listen. ServerSockfd(%l64u)", __FUNCTION__, m_ServerSockfd);
-
+		m_pRefLogger->Write(LOG_TYPE::L_INFO, "%s | Listen. ServerSockfd(%I64u)", __FUNCTION__, m_ServerSockfd);
 		return NET_ERROR_CODE::NONE;
 	}
 
 	NET_ERROR_CODE TcpNetwork::NewSession()
 	{
-		auto tryCount = 0; // 너무 많이 accept 시도하지 않도록
+		auto tryCount = 0; // 너무 많이 accept를 시도하지 않도록 한다.
 
-		do {
+		do
+		{
 			++tryCount;
 
 			struct sockaddr_in client_adr;
@@ -295,37 +294,41 @@ namespace NServerNetLib
 			auto client_len = static_cast<int>(sizeof(client_adr));
 			auto client_sockfd = accept(m_ServerSockfd, (struct sockaddr*)&client_adr, &client_len);
 
+			//m_pRefLogger->Write(LOG_TYPE::L_DEBUG, "%s | client_sockfd(%I64u)", __FUNCTION__, client_sockfd);
 			if (client_sockfd == INVALID_SOCKET)
 			{
 				if (WSAGetLastError() == WSAEWOULDBLOCK)
 				{
 					return NET_ERROR_CODE::ACCEPT_API_WSAEWOULDBLOCK;
 				}
-				m_pRefLogger->Write(LOG_TYPE::L_ERROR, "%s I Wrong socket cannot accept", __FUNCTION__);
+				m_pRefLogger->Write(LOG_TYPE::L_ERROR, "%s | Wrong socket cannot accept", __FUNCTION__);
 				return NET_ERROR_CODE::ACCEPT_API_ERROR;
 			}
 
 			auto newSessionIndex = AllocClientSessionIndex();
-			if (newSessionIndex < 0) {
+			if (newSessionIndex < 0)
+			{
+				m_pRefLogger->Write(LOG_TYPE::L_WARN, "%s | client_sockfd(%I64u)  >= MAX_SESSION", __FUNCTION__, client_sockfd);
 
-				m_pRefLogger->Write(LOG_TYPE::L_WARN, "%s I client_sockfd(%l64u) >= MAX_SESSION", __FUNCTION__, client_sockfd);
-
-				// 더 이상 수용할 수 없으므로 짜른다.
+				// 더 이상 수용할 수 없으므로 바로 짜른다.
 				CloseSession(SOCKET_CLOSE_CASE::SESSION_POOL_EMPTY, client_sockfd, -1);
 				return NET_ERROR_CODE::ACCEPT_MAX_SESSION_COUNT;
 			}
+
 
 			char clientIP[MAX_IP_LEN] = { 0, };
 			inet_ntop(AF_INET, &(client_adr.sin_addr), clientIP, MAX_IP_LEN - 1);
 
 			SetSockOption(client_sockfd);
+
 			SetNonBlockSocket(client_sockfd);
 
 			FD_SET(client_sockfd, &m_Readfds);
-
+			//m_pRefLogger->Write(LOG_TYPE::L_DEBUG, "%s | client_sockfd(%I64u)", __FUNCTION__, client_sockfd);
 			ConnectedSession(newSessionIndex, client_sockfd, clientIP);
+
 		} while (tryCount < FD_SETSIZE);
-		
+
 		return NET_ERROR_CODE::NONE;
 	}
 
@@ -376,9 +379,10 @@ namespace NServerNetLib
 			return;
 		}
 
+
 		closesocket(sockFD);
 		FD_CLR(sockFD, &m_Readfds);
-		
+
 		m_ClientSessionPool[sessionIndex].Clear();
 		--m_ConnectedSessionCount;
 		ReleaseSessionIndex(sessionIndex);
@@ -397,7 +401,7 @@ namespace NServerNetLib
 		}
 
 		int recvPos = 0;
-		
+
 		if (session.RemainingDataSize > 0)
 		{
 			memcpy(session.pRecvBuffer, &session.pRecvBuffer[session.PrevReadPosInRecvBuffer], session.RemainingDataSize);
@@ -419,10 +423,12 @@ namespace NServerNetLib
 			{
 				return NET_ERROR_CODE::RECV_API_ERROR;
 			}
-			else {
+			else
+			{
 				return NET_ERROR_CODE::NONE;
 			}
 		}
+
 		session.RemainingDataSize += recvSize;
 		return NET_ERROR_CODE::NONE;
 	}
@@ -451,8 +457,7 @@ namespace NServerNetLib
 
 				if (bodySize > MAX_PACKET_BODY_SIZE)
 				{
-					// 더 이상 이 세션과는 작업을 하지 않을 예정
-					// 클라이언트 보고 또는 직접 짤라야 한다.
+					// 더 이상 이 세션과는 작업을 하지 않을 예정. 클라이언트 보고 나가라고 하던가 직접 짤라야 한다.
 					return NET_ERROR_CODE::RECV_CLIENT_MAX_PACKET;
 				}
 			}
@@ -469,7 +474,7 @@ namespace NServerNetLib
 
 	void TcpNetwork::AddPacketQueue(const int sessionIndex, const short pktId, const short bodySize, char* pDataPos)
 	{
-		RecvPackInfo packetInfo;
+		RecvPacketInfo packetInfo;
 		packetInfo.SessionIndex = sessionIndex;
 		packetInfo.PacketId = pktId;
 		packetInfo.PacketBodySize = bodySize;
@@ -504,12 +509,11 @@ namespace NServerNetLib
 
 		auto result = SendSocket(fd, session.pSendBuffer, session.SendSize);
 
-		if (result.Error != NET_ERROR_CODE::NONE)
-		{
+		if (result.Error != NET_ERROR_CODE::NONE) {
 			return result;
 		}
 
-		auto sendSize = result.Value;
+		auto sendSize = result.Vlaue;
 		if (sendSize < session.SendSize)
 		{
 			memmove(&session.pSendBuffer[0],
@@ -518,10 +522,10 @@ namespace NServerNetLib
 
 			session.SendSize -= sendSize;
 		}
-		else {
+		else
+		{
 			session.SendSize = 0;
 		}
-
 		return result;
 	}
 
@@ -530,17 +534,19 @@ namespace NServerNetLib
 		NetError result(NET_ERROR_CODE::NONE);
 		auto rfds = m_Readfds;
 
-		if (size <= 0) // 접속 되어 있는지 또는 보낼 데이터가 있는지
+		// 접속 되어 있는지 또는 보낼 데이터가 있는지
+		if (size <= 0)
 		{
 			return result;
 		}
 
-		result.Value = send(fd, pMsg, size, 0);
+		result.Vlaue = send(fd, pMsg, size, 0);
 
-		if (result.Value <= 0)
+		if (result.Vlaue <= 0)
 		{
 			result.Error = NET_ERROR_CODE::SEND_SIZE_ZERO;
 		}
+
 		return result;
 	}
 
@@ -552,6 +558,8 @@ namespace NServerNetLib
 		{
 			return NET_ERROR_CODE::SERVER_SOCKET_FIONBIO_FAIL;
 		}
+
 		return NET_ERROR_CODE::NONE;
 	}
+
 }

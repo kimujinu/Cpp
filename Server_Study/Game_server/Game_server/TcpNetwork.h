@@ -1,19 +1,19 @@
 #pragma once
 
 #ifdef _WIN32
-#define FD_SETSIZE 5096
+#define FD_SETSIZE 5096 // http://blog.naver.com/znfgkro1/220175848048
 #else
-#endif // _WIN32
+#endif
 
 #pragma comment(lib, "ws2_32")
-
-#include <WinSock2.h>
-#include <WS2tcpip.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 
 #include <vector>
 #include <deque>
 #include <unordered_map>
-#include "ITcpNetwork.h"
+#include "lTcpNetwork.h"
+
 
 namespace NServerNetLib
 {
@@ -23,19 +23,20 @@ namespace NServerNetLib
 		TcpNetwork();
 		virtual ~TcpNetwork();
 
-		NET_ERROR_CODE Init(const ServerConfig* pConfig, lLog* pLogger) override;
+		NET_ERROR_CODE Init(const ServerConfig* pConfig, ILog* pLogger) override;
 
 		NET_ERROR_CODE SendData(const int sessionIndex, const short packetId, const short size, const char* pMsg) override;
 
 		void Run() override;
 
-		RecvPackInfo GetPacketInfo() override;
+		RecvPacketInfo GetPacketInfo() override;
 
 		void Release() override;
 
 		int ClientSessionPoolSize() override { return (int)m_ClientSessionPool.size(); }
 
 		void ForcingClose(const int sessionIndex) override;
+
 
 	protected:
 		NET_ERROR_CODE InitServerSocket();
@@ -78,8 +79,9 @@ namespace NServerNetLib
 
 		std::vector<ClientSession> m_ClientSessionPool;
 		std::deque<int> m_ClientSessionPoolIndex;
-		std::deque<RecvPackInfo> m_PacketQueue;
 
-		lLog* m_pRefLogger;
+		std::deque<RecvPacketInfo> m_PacketQueue;
+
+		ILog* m_pRefLogger;
 	};
 }
