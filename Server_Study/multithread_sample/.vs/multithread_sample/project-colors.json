@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "894b7d7a-feef-4302-b816-d2142f484698": {
+      "ProjectGuid": "894b7d7a-feef-4302-b816-d2142f484698",
+      "DisplayName": "multithread_sample",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
