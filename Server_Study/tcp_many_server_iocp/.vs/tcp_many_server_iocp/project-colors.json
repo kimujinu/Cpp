@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "87221b90-34cb-4a7b-bdf3-d30f3c65f181": {
+      "ProjectGuid": "87221b90-34cb-4a7b-bdf3-d30f3c65f181",
+      "DisplayName": "tcp_many_server_iocp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
