@@ -56,7 +56,7 @@ ERROR_CODE Server::Init()
 
 void Server::Release()
 {
-	if (m_pNetwork) {
+	if (m_pNetwork) { // 네트워크된 클라이언트들을 다 끊어주기
 		m_pNetwork->Release();
 	}
 }

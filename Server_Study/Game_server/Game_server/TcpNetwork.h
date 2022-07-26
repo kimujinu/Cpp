@@ -25,13 +25,13 @@ namespace NServerNetLib
 
 		NET_ERROR_CODE Init(const ServerConfig* pConfig, ILog* pLogger) override;
 
-		NET_ERROR_CODE SendData(const int sessionIndex, const short packetId, const short size, const char* pMsg) override;
+		NET_ERROR_CODE SendData(const int sessionIndex, const short packetId, const short size, const char* pMsg) override; // 요청이 올때마다 에코해줄때
 
-		void Run() override;
+		void Run() override; // 네트워크에서 발생한 이벤트(새로운 접속발생, 접속된 클라이언트가 끊어졋을때, 접속한 클라이언트에서 패킷을 보냈을때 ) 
 
 		RecvPacketInfo GetPacketInfo() override;
 
-		void Release() override;
+		void Release() override; // 게임서버 종료시
 
 		int ClientSessionPoolSize() override { return (int)m_ClientSessionPool.size(); }
 

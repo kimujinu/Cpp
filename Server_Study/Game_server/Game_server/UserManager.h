@@ -30,7 +30,7 @@ private:
 	User* FindUser(const char* pszID);
 
 private:
-	std::vector<User> m_UserObjPool;
+	std::vector<User> m_UserObjPool; 
 	std::deque<int> m_UserObjPoolIndex;
 
 	std::unordered_map<int, User*> m_UserSessionDic;

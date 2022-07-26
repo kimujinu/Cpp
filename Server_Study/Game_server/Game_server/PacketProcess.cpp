@@ -30,7 +30,7 @@ void PacketProcess::Process(PacketInfo packetInfo)
 
 	auto packetId = packetInfo.PacketId;
 
-	switch (packetId)
+	switch (packetId) // 구현할 기능에 따라 switch문을 늘려가면 된다. 하지만, 프로그램이 커져서 스위치문이 길어지면 불편하기 때문에 함수 포인터를 사용하거나 unordered map를 사용한다.
 	{
 	case (int)netLibPacketId::NTF_SYS_CONNECT_SESSION:
 		NtfSysConnctSession(packetInfo);

@@ -38,12 +38,12 @@ private:
 private:
 	bool m_IsRun = false;
 
-	std::unique_ptr<NServerNetLib::ServerConfig> m_pServerConfig;
-	std::unique_ptr<NServerNetLib::ILog> m_pLogger;
-	std::unique_ptr<NServerNetLib::ITcpNetwork> m_pNetwork;
+	std::unique_ptr<NServerNetLib::ServerConfig> m_pServerConfig; // 서버설정정보
+	std::unique_ptr<NServerNetLib::ILog> m_pLogger; // 로그정보
+	std::unique_ptr<NServerNetLib::ITcpNetwork> m_pNetwork; // 네트워크 정보
 
-	std::unique_ptr<PacketProcess> m_pPacketProc;
-	std::unique_ptr<UserManager> m_pUserMgr;
-	std::unique_ptr<RoomManager> m_pRoomMgr;
+	std::unique_ptr<PacketProcess> m_pPacketProc; // 패킷프로세스 클래스
+	std::unique_ptr<UserManager> m_pUserMgr; // 로그인된 클라이언트의 정보 클래스
+	std::unique_ptr<RoomManager> m_pRoomMgr; 
 };
 
